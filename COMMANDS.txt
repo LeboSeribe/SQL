@@ -1,0 +1,159 @@
+CREATE DATABASE Umuzi
+
+
+________________________________________________________________________
+CREATE TABLE Customers(
+CustomerID SERIAL  UNIQUE, 
+FirstName VARCHAR(50),
+LastName VARCHAR(50),
+Gender VARCHAR,
+Address VARCHAR(200),
+Phone INT,
+Email VARCHAR(100)  UNIQUE,
+City  VARCHAR(20),
+Country VARCHAR(50),
+PPRIMARY KEY(CustomerID) 
+)
+_
+
+_________________________________
+CREATE TABLE  Employees(
+EmployeeID  SERIAL  UNIQUE,
+FirstName  VARCHAR(50),
+LastName VARCHAR(50),
+Email VARCHAR(100)  UNIQUE,
+JobTitle VARCHAR(20),
+PRIMARY KEY(EmployeeID)
+)
+____
+
+______________________________
+CREATE TABLE Orders(
+OrderId  SERIAL  UNIQUE,
+ProductID  INT  REFERENCE Products(ProductId),
+PaymentID  INT  REFERNCE Payments(PaymentID),
+FulfilledByEmployeeID INT  REFERNCE Employees(EmployeeID),
+DateRequired  DATE,
+DateShipped  DATE,
+Status  VARCHAR(20),
+PRIMARY KEY(OrderId)
+)
+
+
+___________________________________
+CREATE TABLE Payments(
+CustomerId  INT  UNIQUE,
+PaymentID INT  UNIQUE,
+PaymentDate  DATE,
+Amount  DECIMAL,
+PRIMARY KEY(PaymentID)
+
+)
+
+
+_____________________________________
+CREATE TABLE Products(
+ProductName VARCHAR(100),
+Description  VARCHAR(300),
+BuyPrice  DECIMAL,
+PRIMARY KEY(ProductId)
+)
+___
+
+_______________________________________________________________________
+_________________________________________________________________________
+_________________________________________________________________________
+
+
+INSERT INTO customers ( 
+FirstName,LastName,Gender,Address,Phone,Email,City,Country)
+ VALUES ('John','Hibert','Male'	,'284 chaucer st',084789657,'john@gmail.com,Johannesburg','South Africa'),
+('Thando','Sithole','Female','240 Sect 1',0794445584,'thando@gmail.com','Cape Town',	'South Africa'),
+('Leon','Glen',	'Male',	'81 Everton Rd,Gillits',0820832830,'Leon@gmail.com','Durban','South Africa'),
+('Charl','Muller','Male','290A Dorset Ecke',+44856872553,'Charl.muller@yahoo.com','Berlin','Germany'),
+('Julia','Stein','Female','2 Wernerring',+448672445058,'Js234@yahoo.com','Frankfurt', 'Germany');
+
+INSERT INTO Employees(FirstName,LastName,Email,JobTitle)
+ VALUES ('Kani','Matthew','mat@gmail.com','Manager'),
+('Lesly','Cronje','LesC@gmail.com','Clerk'),
+('Gideon','Maduku','m@gmail.com','Accountant');
+
+INSERT INTO Products(ProductId,ProductName,Description,BuyPrice)
+VALUES
+(1,'Harley Davidson Chopper', 'This replica features working kickstand, front suspension, gear-shift lever',150.75),
+(2, 'Classic Car', 'Turnable front wheels, steering function',550.75),
+(3, 'Sports car', 'Turnable front wheels, steering function',700.60)
+;
+
+INSERT INTO Payments(CustomerId,PaymentID,PaymentDate,Amount)
+VALUES
+(1,1,'01-09-2018',150.75),
+(5,2,'03-09-2018',150.75),
+(4,3,'03-09-2018',700.60),
+
+INSERT INTO Orders
+(ProductID,PaymentID,FulfilledByEmployeeID,DateRequired,DateShipped,Status)
+VALUES
+(1, 1, 2, '05-09-2018', NULL, 'Not shipped'),
+(1, 2, 2, '04-09-2018', '03-09-2018', 'Shipped'),
+(3, 3, 3, '06-09-2018', NULL, 'Not shipped');
+
+Document what information is stored in your database. Be sure to say what information is kept in what table, and which keys link the records between tables.
+
+
+Part 2: Querying a database
+____________________________
+
+
+1.SELECT * FROM customers
+
+2.SELECT SELECT firstname from customers
+
+3.SELECT firstname from customers WHERE CustomerID =1
+
+4.UPDATE customers SET firstname = 'Lerato', lastname= 'Mabitso' WHERE customerID = 1;
+
+5.DELETE FROM Customers WHERE CustomerID = 2;
+
+6.SELECT COUNT(DISTINCT status) FROM orders;
+
+7.SELECT MAX(Amount) from payments
+
+8.SELECT * FROM Customers ORDER BY Country;
+
+9.SELECT * FROM Products WHERE buyprice BETWEEN 100 AND 600;
+
+10.SELECT * FROM customers
+WHERE country = 'Germany' AND city = 'Berlin';
+
+11.SELECT * FROM customers WHERE city = 'Cape Town' OR city = 'Durban';
+
+12.SELECT * From Products WHERE buyprice > 500 ;
+
+13.SELECT SUM(Amount) FROM payments;
+
+14.SELECT COUNT( status) FROM orders where status = 'Shipped';
+
+15.SELECT AVG(buyprice) AS rands, AVG(buyprice) /12 AS dollars FROM products;
+
+16.SElECT *  FROM Payments INNER JOIN customers ON Payments.CustomerID = Customers.CustomerID;
+
+17.SElECT *  FROM Products WHERE Description LIKE  '%Turnable front wheels%';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
