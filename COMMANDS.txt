@@ -59,9 +59,9 @@ BuyPrice  DECIMAL,
 PRIMARY KEY(ProductId)
 )
 ___
-
+Document what information is stored in your database. Be sure to say what information is kept in what table, and which keys link the records between tables.
 _______________________________________________________________________
-_________________________________________________________________________
+Customers table has the personal details of the customers such as names and where they live. The Employees table has personal details of employees including the job titles. Then the Oders table contains the details about the products,their shipment and which employee is responsible for the oder therefore it is linked to Employees table.We also have the payments table which has the details about which products are payed for and how much the customer paid for it. The table is linked to payments Customers table and Oders table. Lastly we have Products table which has records of products sold.It is linked with Oders table._______________________________________________________________________
 _________________________________________________________________________
 
 
